@@ -1,18 +1,42 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Location v-if="pos" :pos="location" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import Location from '@/components/Location.vue';
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
-    HelloWorld,
+    Location,
+  },
+  data() {
+    return {
+      pos: null,
+    };
+  },
+  methods: {
+    setLocation(position) {
+      this.location = position;
+    },
+  },
+  computed: {
+    location: {
+      get() {
+        return {
+          latitude: this.pos.coords.latitude,
+          longitude: this.pos.coords.longitude,
+        };
+      },
+      set(pos) {
+        this.pos = pos;
+      },
+    },
+  },
+  created() {
+    navigator.geolocation.getCurrentPosition(this.setLocation);
   },
 };
 </script>
