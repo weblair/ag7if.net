@@ -25,15 +25,12 @@ export default {
       return `${this.pos.longitude * -1} W`;
     },
     maidenhead() {
-      const fiveMin = 0.0833333;
-      const twoDfiveMin = 0.0416667;
-
       // Longitude calculations
       const long = this.pos.longitude + 180;
       const longF = Math.floor(long / 20);
       const longField = String.fromCharCode(0x41 + longF);
       const longSquare = Math.floor((long - (longF * 20)) / 2);
-      const longSSq = Math.floor((long - Math.floor(long)) / 0.0833333);
+      const longSSq = Math.floor((long - (longF * 20) - (longSquare * 2)) / 0.0833333);
       const longSubsquare = String.fromCharCode(0x61 + longSSq);
 
       // Latitude calculations
