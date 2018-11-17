@@ -1,12 +1,10 @@
 <template>
-  <div id='currentwx' class='card'>
-    <div v-if='metars'>
-      Current Weather:
-    </div>
+  <div id='currentWX' class='card'>
+    <h3 v-if='metars'>Current Weather</h3>
     <div v-else>
       Fetching METARS&hellip;
     </div>
-    <div id='wxcontrols'>
+    <div id='wxControls'>
       <div v-if='decoded' class='btn-group' role='group'>
         <button @click='setRaw' type='button' class='btn btn-light'>Raw</button>
         <button type='button' class='btn btn-dark'>Decoded</button>
@@ -24,7 +22,24 @@
         <button @click='setF' type='button' class='btn btn-light'>&deg;F</button>
       </div>
     </div>
-    <ul v-if='metars'>
+    <table v-if='metars && decoded' id='metarTable'>
+      <tr>
+        <th class='station' >Station</th>
+        <th>Temp</th>
+        <th>Dewpoint</th>
+        <th>Wind Direction</th>
+        <th>Wind Speed</th>
+        <th>Pressure</th>
+      </tr>
+      <METAR
+        v-for='metar in metars'
+        :key='metar.stationID'
+        :metar='metar'
+        :decoded='decoded'
+        :useF='useF'
+      />
+    </table>
+    <ul v-else-if='metars && !decoded' id='metarList'>
       <METAR
         v-for='metar in metars'
         :key='metar.stationID'
@@ -108,10 +123,25 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#currentwx {
-  text-align: left;
+#currentWX {
 }
-#wxcontrols {
+#metarList {
+  text-align: left;
+  padding: 1em;
+}
+#metarTable {
+  padding: 1em;
+}
+th {
+  padding: 10px;
+}
+td {
+  text-align: right;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+#wxControls {
   display: flex;
   justify-content: space-between;
 }
