@@ -1,21 +1,28 @@
 <template>
-  <li v-if='decoded' id='metar'>
-    Station: {{ this.metar.stationID }} <br />
-    <div v-if='useF'>
-      Temperature: {{ this.toF(this.metar.tempC).toFixed(1) }}&deg;F <br />
-    </div>
-    <div v-else>
-      Temperature: {{ this.metar.tempC }}&deg;C <br />
-    </div>
-    <div v-if='useF'>
-      Dewpoint: {{ this.toF(this.metar.dewpointC).toFixed(1) }}&deg;F <br />
-    </div>
-    <div v-else>
-      Dewpoint: {{ this.metar.dewpointC }}&deg;C <br />
-    </div>
-    Wind: {{ this.metar.windDirDegrees }}&deg; {{ this.metar.windSpeedKT }}kt <br />
-    Pressure: {{ this.metar.altimInHg.toFixed(2) }} inHg
-  </li>
+  <tr v-if='decoded' id='metar'>
+    <td class='station'>{{ this.metar.stationID }}</td>
+    <td v-if='useF'>
+      {{ this.toF(this.metar.tempC).toFixed(1) }}&deg;F
+    </td>
+    <td v-else>
+      {{ this.metar.tempC.toFixed(1) }}&deg;C
+    </td>
+    <td v-if='useF'>
+      {{ this.toF(this.metar.dewpointC).toFixed(1) }}&deg;F
+    </td>
+    <td v-else>
+      {{ this.metar.dewpointC.toFixed(1) }}&deg;C
+    </td>
+    <td>
+      {{ this.metar.windDirDegrees }}&deg;
+    </td>
+    <td>
+      {{ this.metar.windSpeedKT }}kt
+    </td>
+    <td>
+      {{ this.metar.altimInHg.toFixed(2) }} inHg
+    </td>
+  </tr>
   <li v-else>
     {{ this.metar.rawText }}
   </li>
@@ -35,5 +42,8 @@ export default {
 
 <style scoped lang="scss">
 #metar {
+}
+
+#decodedData {
 }
 </style>

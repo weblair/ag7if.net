@@ -6,20 +6,23 @@
     </div>
     <div class='row'>
       <div class='col-sm-1'></div>
-      <CurrentWx v-if='pos' :pos='location' class='col-sm-4' />
+      <CurrentWx v-if='pos' :pos='location' class='col-sm-5' />
+      <AstroData v-if='pos' :pos='location' class='col-sm-5' />
     </div>
   </div>
 </template>
 
 <script>
-import Location from '@/components/Location.vue';
+import AstroData from '@/components/AstroData.vue';
 import CurrentWx from '@/components/CurrentWx.vue';
+import Location from '@/components/Location.vue';
 
 export default {
   name: 'Home',
   components: {
-    Location,
+    AstroData,
     CurrentWx,
+    Location,
   },
   data() {
     return {

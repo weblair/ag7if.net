@@ -9,6 +9,10 @@
 <style lang="scss">
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
+h3 {
+  padding: 10px;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
