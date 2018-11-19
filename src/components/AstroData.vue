@@ -1,12 +1,12 @@
 <template>
-  <div id='astrodata' class='card'>
-    <h3 v-if='astroData'>Sun and Moon Data</h3>
+  <div id="astrodata" class="card">
+    <h3 v-if="astroData">Sun and Moon Data</h3>
     <div v-else>Loading sun and moon data&hellip;</div>
-    <table v-if='astroData'>
+    <table v-if="astroData">
       <tr>
         <td></td>
-        <th class='title'>Sun</th>
-        <th class='title'>Moon</th>
+        <th class="title">Sun</th>
+        <th class="title">Moon</th>
       </tr>
       <tr>
         <th>Phase</th>

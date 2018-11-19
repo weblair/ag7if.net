@@ -1,13 +1,13 @@
 <template>
-  <div class='home'>
-    <div class='row'>
-      <div class='col-sm-1'></div>
-      <Location v-if='pos' :pos='location' class='col-sm-10' />
+  <div class="home">
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <Location v-if="pos" :pos="location" class="col-sm-10" />
     </div>
-    <div class='row'>
-      <div class='col-sm-1'></div>
-      <CurrentWx v-if='pos' :pos='location' class='col-sm-5' />
-      <AstroData v-if='pos' :pos='location' class='col-sm-5' />
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <CurrentWx v-if="pos" :pos="location" class="col-sm-5" />
+      <AstroData v-if="pos" :pos="location" class="col-sm-5" />
     </div>
   </div>
 </template>
