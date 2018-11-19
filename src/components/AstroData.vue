@@ -128,7 +128,7 @@ export default {
 #astrodata {
 }
 table {
-  width: 0%;
+  width: 60%;
 }
 th {
   text-align: left;
