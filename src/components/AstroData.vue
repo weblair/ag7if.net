@@ -9,6 +9,11 @@
         <th class='title'>Moon</th>
       </tr>
       <tr>
+        <th>Phase</th>
+        <td></td>
+        <td>{{ this.astroData.moondata.phase }}</td>
+      </tr>
+      <tr>
         <th>Begin of Civil Twilight</th>
         <td>{{ this.astroData.sundata.twilightStart }}</td>
         <td></td>
@@ -49,7 +54,15 @@ export default {
     };
   },
   methods: {
+    parseTime(date, time) {
+      const dateStr = `${date}T${time}Z`;
+      const t = new Date(dateStr);
+      const hr = t.getHours().toString().padStart(2, '0');
+      const min = t.getMinutes().toString().padStart(2, '0');
+      return `${hr}:${min}`;
+    },
     parseData(data) {
+      const date = `${data.year}-${data.month}-${data.day}`;
       const sundata = {
         twilightStart: null,
         rise: null,
@@ -60,19 +73,19 @@ export default {
       data.sundata.forEach((d) => {
         switch (d.phen) {
           case 'BC':
-            sundata.twilightStart = d.time;
+            sundata.twilightStart = this.parseTime(date, d.time);
             break;
           case 'R':
-            sundata.rise = d.time;
+            sundata.rise = this.parseTime(date, d.time);
             break;
           case 'U':
-            sundata.transit = d.time;
+            sundata.transit = this.parseTime(date, d.time);
             break;
           case 'S':
-            sundata.set = d.time;
+            sundata.set = this.parseTime(date, d.time);
             break;
           case 'EC':
-            sundata.twilightEnd = d.time;
+            sundata.twilightEnd = this.parseTime(date, d.time);
             break;
           default:
             break;
@@ -83,17 +96,18 @@ export default {
         rise: null,
         transit: null,
         set: null,
+        phase: data.curphase,
       };
       data.moondata.forEach((d) => {
         switch (d.phen) {
           case 'R':
-            moondata.rise = d.time;
+            moondata.rise = this.parseTime(date, d.time);
             break;
           case 'U':
-            moondata.transit = d.time;
+            moondata.transit = this.parseTime(date, d.time);
             break;
           case 'S':
-            moondata.set = d.time;
+            moondata.set = this.parseTime(date, d.time);
             break;
           default:
             break;
