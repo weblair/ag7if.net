@@ -1,30 +1,30 @@
 <template>
-  <div id='currentWX' class='card'>
-    <h3 v-if='metars'>Current Weather</h3>
+  <div id="currentWX" class="card">
+    <h3 v-if="metars">Current Weather</h3>
     <div v-else>
       Fetching METARS&hellip;
     </div>
-    <div id='wxControls'>
-      <div v-if='decoded' class='btn-group' role='group'>
-        <button @click='setRaw' type='button' class='btn btn-light'>Raw</button>
-        <button type='button' class='btn btn-dark'>Decoded</button>
+    <div id="wxControls">
+      <div v-if="decoded" class="btn-group" role="group">
+        <button @click="setRaw" type="button" class="btn btn-light">Raw</button>
+        <button type="button" class="btn btn-dark">Decoded</button>
       </div>
-      <div v-else class='btn-group' role='group'>
-        <button type='button' class='btn btn-dark'>Raw</button>
-        <button @click='setDecoded' type='button' class='btn btn-light'>Decoded</button>
+      <div v-else class="btn-group" role="group">
+        <button type="button" class="btn btn-dark">Raw</button>
+        <button @click="setDecoded" type="button" class="btn btn-light">Decoded</button>
       </div>
-      <div v-if='decoded && useF' class='btn-group' role='group'>
-        <button @click='setC' type='button' class='btn btn-light'>&deg;C</button>
-        <button type='button' class='btn btn-dark'>&deg;F</button>
+      <div v-if="decoded && useF" class="btn-group" role="group">
+        <button @click="setC" type="button" class="btn btn-light">&deg;C</button>
+        <button type="button" class="btn btn-dark">&deg;F</button>
       </div>
-      <div v-else-if='decoded && !useF' class='btn-group' role='group'>
-        <button type='button' class='btn btn-dark'>&deg;C</button>
-        <button @click='setF' type='button' class='btn btn-light'>&deg;F</button>
+      <div v-else-if="decoded && !useF" class="btn-group" role="group">
+        <button type="button" class="btn btn-dark">&deg;C</button>
+        <button @click="setF" type="button" class="btn btn-light">&deg;F</button>
       </div>
     </div>
-    <table v-if='metars && decoded' id='metarTable'>
+    <table v-if="metars && decoded" id="metarTable">
       <tr>
-        <th class='station' >Station</th>
+        <th class="station" >Station</th>
         <th>Temp</th>
         <th>Dewpoint</th>
         <th>Wind Direction</th>
@@ -32,20 +32,20 @@
         <th>Pressure</th>
       </tr>
       <METAR
-        v-for='metar in metars'
-        :key='metar.stationID'
-        :metar='metar'
-        :decoded='decoded'
-        :useF='useF'
+        v-for="metar in metars"
+        :key="metar.stationID"
+        :metar="metar"
+        :decoded="decoded"
+        :useF="useF"
       />
     </table>
-    <ul v-else-if='metars && !decoded' id='metarList'>
+    <ul v-else-if="metars && !decoded" id="metarList">
       <METAR
-        v-for='metar in metars'
-        :key='metar.stationID'
-        :metar='metar'
-        :decoded='decoded'
-        :useF='useF'
+        v-for="metar in metars"
+        :key="metar.stationID"
+        :metar="metar"
+        :decoded="decoded"
+        :useF="useF"
       />
     </ul>
   </div>
@@ -101,7 +101,7 @@ export default {
     METAR,
   },
   created() {
-    const url = 'https://www.aviationweather.gov/adds/dataserver_current/httpparam';
+    const url = 'https://www.ag7if.net/api/avwx';
     const params = {
       dataSource: 'metars',
       requestType: 'retrieve',

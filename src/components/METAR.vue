@@ -1,13 +1,13 @@
 <template>
-  <tr v-if='decoded' id='metar'>
-    <td class='station'>{{ this.metar.stationID }}</td>
-    <td v-if='useF'>
+  <tr v-if="decoded" id="metar">
+    <td class="station">{{ this.metar.stationID }}</td>
+    <td v-if="useF">
       {{ this.toF(this.metar.tempC).toFixed(1) }}&deg;F
     </td>
     <td v-else>
       {{ this.metar.tempC.toFixed(1) }}&deg;C
     </td>
-    <td v-if='useF'>
+    <td v-if="useF">
       {{ this.toF(this.metar.dewpointC).toFixed(1) }}&deg;F
     </td>
     <td v-else>

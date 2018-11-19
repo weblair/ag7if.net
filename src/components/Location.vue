@@ -1,5 +1,5 @@
 <template>
-  <div id='location' class='card'>
+  <div id="location" class="card">
     Showing information for grid {{this.maidenhead}} <br />
     {{this.latitude}}, {{this.longitude}}
   </div>
