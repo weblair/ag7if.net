@@ -121,7 +121,7 @@ export default {
     },
   },
   created() {
-    const url = 'http://api.usno.navy.mil/rstt/oneday';
+    const url = 'https://api.the-hawk.us/usno';
     const params = {
       date: 'today',
       coords: `${this.pos.latitude},${this.pos.longitude}`,
