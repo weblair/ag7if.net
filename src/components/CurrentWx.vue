@@ -101,7 +101,7 @@ export default {
     METAR,
   },
   created() {
-    const url = 'https://www.aviationweather.gov/adds/dataserver_current/httpparam';
+    const url = 'https://www.ag7if.net/api/avwx';
     const params = {
       dataSource: 'metars',
       requestType: 'retrieve',

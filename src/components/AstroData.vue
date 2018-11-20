@@ -121,7 +121,7 @@ export default {
     },
   },
   created() {
-    const url = 'https://api.the-hawk.us/usno';
+    const url = 'https://www.ag7if.net/api/usno';
     const params = {
       date: 'today',
       coords: `${this.pos.latitude},${this.pos.longitude}`,
