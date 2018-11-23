@@ -96,8 +96,15 @@ export default {
         rise: null,
         transit: null,
         set: null,
-        phase: data.curphase,
+        phase: null,
       };
+
+      if (data.curphase) {
+        moondata.phase = data.curphase;
+      } else {
+        moondata.phase = data.closestphase.phase;
+      }
+
       data.moondata.forEach((d) => {
         switch (d.phen) {
           case 'R':
