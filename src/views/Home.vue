@@ -9,6 +9,10 @@
       <CurrentWx v-if="pos" :pos="location" class="col-sm-5" />
       <AstroData v-if="pos" :pos="location" class="col-sm-5" />
     </div>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <WxForecast v-if="pos" :pos="location" class="col-sm-10" />
+    </div>
   </div>
 </template>
 
@@ -16,6 +20,7 @@
 import AstroData from '@/components/AstroData.vue';
 import CurrentWx from '@/components/CurrentWx.vue';
 import Location from '@/components/Location.vue';
+import WxForecast from '@/components/WxForecast.vue';
 
 export default {
   name: 'Home',
@@ -23,6 +28,7 @@ export default {
     AstroData,
     CurrentWx,
     Location,
+    WxForecast,
   },
   data() {
     return {

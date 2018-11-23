@@ -11,18 +11,38 @@ export default {
   props: ['pos'],
   computed: {
     latitude() {
-      if (this.pos.latitude >= 0) {
-        return `${this.pos.latitude} N`;
+      let lat = null;
+      let dir = null;
+      if (this.pos.latitude < 0) {
+        lat = this.pos.latitude * -1;
+        dir = 'S';
+      } else {
+        lat = this.pos.latitude;
+        dir = 'N';
       }
 
-      return `${this.pos.latitude * -1} S`;
+      const deg = Math.trunc(lat);
+      const min = Math.trunc((lat - deg) * 60);
+      const sec = (lat - deg - min / 60) * 3600;
+
+      return `${deg}\u00B0 ${min}" ${sec.toFixed(1)}' ${dir}`;
     },
     longitude() {
-      if (this.pos.longitude >= 0) {
-        return `${this.pos.longitude} E`;
+      let long = null;
+      let dir = null;
+      if (this.pos.longitude < 0) {
+        long = this.pos.longitude * -1;
+        dir = 'W';
+      } else {
+        long = this.pos.longitude;
+        dir = 'E';
       }
 
-      return `${this.pos.longitude * -1} W`;
+      const deg = Math.trunc(long);
+      const min = Math.trunc((long - deg) * 60);
+      const sec = (long - deg - min / 60) * 3600;
+
+      return `${deg}\u00B0 ${min}" ${sec.toFixed(1)}' ${dir}`;
     },
     maidenhead() {
       // Longitude calculations
