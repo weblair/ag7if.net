@@ -130,8 +130,8 @@ export default {
   created() {
     const url = 'https://www.ag7if.net/api/usno';
     const params = {
-      date: 'today',
-      coords: `${this.pos.latitude},${this.pos.longitude}`,
+      lat: this.pos.latitude,
+      long: this.pos.longitude,
     };
 
     axios.get(url, { params })

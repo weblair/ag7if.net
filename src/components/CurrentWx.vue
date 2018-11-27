@@ -101,14 +101,12 @@ export default {
     METAR,
   },
   created() {
-    const url = 'https://www.ag7if.net/api/avwx';
+    const url = 'https://www.ag7if.net/api/adds';
     const params = {
-      dataSource: 'metars',
-      requestType: 'retrieve',
-      format: 'xml',
-      radialDistance: `20;${this.pos.longitude},${this.pos.latitude}`,
+      dist: '20',
+      lat: this.pos.latitude,
+      long: this.pos.longitude,
       hoursBeforeNow: '6',
-      mostRecentForEachStation: 'constraint',
     };
 
     axios.get(url, { params })
