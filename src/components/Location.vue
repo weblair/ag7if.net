@@ -1,7 +1,8 @@
 <template>
   <div id="location" class="card">
-    Showing information for grid {{this.maidenhead}} <br />
-    {{this.latitude}}, {{this.longitude}}
+    Showing information for grid {{ this.maidenhead }} <br />
+    {{ this.latitude }}, {{ this.longitude }} <br />
+    Fetched on {{ this.fetchDate }} at {{ this.fetchTime }}
   </div>
 </template>
 
@@ -9,6 +10,11 @@
 export default {
   name: 'Location',
   props: ['pos'],
+  data() {
+    return {
+      date: new Date(),
+    };
+  },
   computed: {
     latitude() {
       let lat = null;
@@ -67,6 +73,17 @@ export default {
         + latSquare
         + longSubsquare
         + latSubsquare;
+    },
+    fetchDate() {
+      const yr = this.date.getUTCFullYear();
+      const mo = (this.date.getUTCMonth() + 1).toString().padStart(2, '0');
+      const dy = this.date.getUTCDate().toString().padStart(2, '0');
+      return `${yr}-${mo}-${dy}`;
+    },
+    fetchTime() {
+      const hr = this.date.getUTCHours().toString().padStart(2, '0');
+      const min = this.date.getUTCMinutes().toString().padStart(2, '0');
+      return `${hr}${min}z`;
     },
   },
 };
