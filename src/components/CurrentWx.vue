@@ -13,13 +13,29 @@
         <button type="button" class="btn btn-dark">Raw</button>
         <button @click="setDecoded" type="button" class="btn btn-light">Decoded</button>
       </div>
-      <div v-if="decoded && useF" class="btn-group" role="group">
+      <div v-if="decoded && units.useF" class="btn-group" role="group">
         <button @click="setC" type="button" class="btn btn-light">&deg;C</button>
         <button type="button" class="btn btn-dark">&deg;F</button>
       </div>
-      <div v-else-if="decoded && !useF" class="btn-group" role="group">
+      <div v-else-if="decoded && !units.useF" class="btn-group" role="group">
         <button type="button" class="btn btn-dark">&deg;C</button>
         <button @click="setF" type="button" class="btn btn-light">&deg;F</button>
+      </div>
+      <div v-if="decoded && units.useMPH" class="btn-group" role="group">
+        <button @click="setKT" type="button" class="btn btn-light">kt</button>
+        <button type="button" class="btn btn-dark">MPH</button>
+      </div>
+      <div v-else-if="decoded && !units.useMPH" class="btn-group" role="group">
+        <button type="button" class="btn btn-dark">kt</button>
+        <button @click="setMPH" type="button" class="btn btn-light">MPH</button>
+      </div>
+      <div v-if="decoded && units.useInHg" class="btn-group" role="group">
+        <button type="button" class="btn btn-dark">InHg</button>
+        <button @click="setMB" type="button" class="btn btn-light">mb</button>
+      </div>
+      <div v-else-if="decoded && !units.useInHg" class="btn-group" role="group">
+        <button @click="setInHg" type="button" class="btn btn-light">InHg</button>
+        <button type="button" class="btn btn-dark">mb</button>
       </div>
     </div>
     <table v-if="metars && decoded" id="metarTable">
@@ -36,7 +52,7 @@
         :key="metar.stationID"
         :metar="metar"
         :decoded="decoded"
-        :useF="useF"
+        :units="units"
       />
     </table>
     <ul v-else-if="metars && !decoded" id="metarList">
@@ -45,7 +61,7 @@
         :key="metar.stationID"
         :metar="metar"
         :decoded="decoded"
-        :useF="useF"
+        :units="units"
       />
     </ul>
   </div>
@@ -64,7 +80,11 @@ export default {
     return {
       decoded: false,
       metars: [],
-      useF: true,
+      units: {
+        useF: true,
+        useMPH: true,
+        useInHg: true,
+      },
     };
   },
   methods: {
@@ -79,6 +99,7 @@ export default {
             windDirDegrees: +rawMETAR.wind_dir_degrees[0],
             windSpeedKT: +rawMETAR.wind_speed_kt[0],
             altimInHg: +rawMETAR.altim_in_hg[0],
+            slpMB: +rawMETAR.sea_level_pressure_mb,
           };
           this.metars.push(metar);
         });
@@ -91,10 +112,22 @@ export default {
       this.decoded = false;
     },
     setC() {
-      this.useF = false;
+      this.units.useF = false;
     },
     setF() {
-      this.useF = true;
+      this.units.useF = true;
+    },
+    setKT() {
+      this.units.useMPH = false;
+    },
+    setMPH() {
+      this.units.useMPH = true;
+    },
+    setMB() {
+      this.units.useInHg = false;
+    },
+    setInHg() {
+      this.units.useInHg = true;
     },
   },
   components: {
