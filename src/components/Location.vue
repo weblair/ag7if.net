@@ -25,7 +25,7 @@ export default {
       const min = Math.trunc((lat - deg) * 60);
       const sec = (lat - deg - min / 60) * 3600;
 
-      return `${deg}\u00B0 ${min}" ${sec.toFixed(1)}' ${dir}`;
+      return `${deg}\u00B0${min}"${sec.toFixed(1)}'${dir}`;
     },
     longitude() {
       let long = null;
@@ -42,7 +42,7 @@ export default {
       const min = Math.trunc((long - deg) * 60);
       const sec = (long - deg - min / 60) * 3600;
 
-      return `${deg}\u00B0 ${min}" ${sec.toFixed(1)}' ${dir}`;
+      return `${deg}\u00B0${min}"${sec.toFixed(1)}'${dir}`;
     },
     maidenhead() {
       // Longitude calculations
