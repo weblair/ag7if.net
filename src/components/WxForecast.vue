@@ -5,13 +5,15 @@
       Forecast for Zone {{ this.zone.id }}
       ({{ this.zone.name }}, {{ this.zone.state }})
     </h3>
-    <div v-if="showTAFS" class="btn-group" role="group">
-      <button @click="setAF" type="button" class="btn btn-light">Zone</button>
-      <button type="button" class="btn btn-dark">TAF</button>
-    </div>
-    <div v-else class="btn-group" role="group">
-      <button type="button" class="btn btn-dark">Zone</button>
-      <button @click="setTAF" type="button" class="btn btn-light">TAF</button>
+    <div v-if="tafs" id="wxForecastCtl">
+      <div v-if="showTAFS" class="btn-group" role="group">
+        <button @click="setAF" type="button" class="btn btn-light">Zone</button>
+        <button type="button" class="btn btn-dark">TAF</button>
+      </div>
+      <div v-else class="btn-group" role="group">
+        <button type="button" class="btn btn-dark">Zone</button>
+        <button @click="setTAF" type="button" class="btn btn-light">TAF</button>
+      </div>
     </div>
     <div v-if="showTAFS && tafs" id="tafList">
       <TAF
@@ -66,10 +68,7 @@ export default {
             this.tafs.push(taf);
           });
         } else {
-          this.tafs.push({
-            stationID: '$',
-            rawText: 'No local TAFs found',
-          });
+          this.tafs = null;
         }
       });
     },
@@ -120,6 +119,10 @@ export default {
 
 <style scoped lang="scss">
 #wxforecast {
+}
+
+#wxForecastCtl{
+  text-align: left;
 }
 
 #tafList{
