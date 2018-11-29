@@ -134,7 +134,7 @@ export default {
     METAR,
   },
   created() {
-    const url = 'https://www.ag7if.net/api/adds';
+    const url = 'https://www.ag7if.net/api/adds/metar';
     const params = {
       dist: '20',
       lat: this.pos.latitude,
