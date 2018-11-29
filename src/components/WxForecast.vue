@@ -1,7 +1,10 @@
 <template>
   <div id="wxforecast" class="card">
     <h3 v-if="showTAFS">Local TAFs</h3>
-    <h3 v-else>Local Forecast</h3>
+    <h3 v-else>
+      Forecast for Zone {{ this.zone.id }}
+      ({{ this.zone.name }}, {{ this.zone.state }})
+    </h3>
     <div v-if="showTAFS" class="btn-group" role="group">
       <button @click="setAF" type="button" class="btn btn-light">Zone</button>
       <button type="button" class="btn btn-dark">TAF</button>
@@ -43,22 +46,31 @@ export default {
       forecastPeriods: null,
       tafs: [],
       showTAFS: false,
+      zone: {},
     };
   },
   methods: {
     parseAF(data) {
       data.periods.map(p => p.detailedForecast.replace('\n', ' ').trim());
+      this.zone = data.zone;
       this.forecastPeriods = data.periods;
     },
     parseTAF(data) {
       xml2js.parseString(data, (err, result) => {
-        result.response.data[0].TAF.forEach((rawTAF) => {
-          const taf = {
-            stationID: rawTAF.station_id[0],
-            rawText: rawTAF.raw_text[0],
-          };
-          this.tafs.push(taf);
-        });
+        if (+result.response.data[0].$.num_results !== 0) {
+          result.response.data[0].TAF.forEach((rawTAF) => {
+            const taf = {
+              stationID: rawTAF.station_id[0],
+              rawText: rawTAF.raw_text[0],
+            };
+            this.tafs.push(taf);
+          });
+        } else {
+          this.tafs.push({
+            stationID: '$',
+            rawText: 'No local TAFs found',
+          });
+        }
       });
     },
     setAF() {
@@ -88,7 +100,7 @@ export default {
       dist: '20',
       lat: this.pos.latitude,
       long: this.pos.longitude,
-      hoursBeforeNow: '6',
+      hoursBeforeNow: '24',
     };
 
     axios.get(url, { params })
