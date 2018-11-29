@@ -4,7 +4,7 @@
     <div v-else>
       Fetching METARS&hellip;
     </div>
-    <div id="wxControls">
+    <div v-if="allowDecoding" id="wxControls">
       <div v-if="decoded" class="btn-group" role="group">
         <button @click="setRaw" type="button" class="btn btn-light">Raw</button>
         <button type="button" class="btn btn-dark">Decoded</button>
@@ -78,6 +78,7 @@ export default {
   props: ['pos'],
   data() {
     return {
+      allowDecoding: true,
       decoded: false,
       metars: [],
       units: {
@@ -90,19 +91,27 @@ export default {
   methods: {
     parseMETARs(data) {
       xml2js.parseString(data, (err, result) => {
-        result.response.data[0].METAR.forEach((rawMETAR) => {
-          const metar = {
-            stationID: rawMETAR.station_id[0],
-            rawText: rawMETAR.raw_text[0],
-            tempC: +rawMETAR.temp_c[0],
-            dewpointC: +rawMETAR.dewpoint_c[0],
-            windDirDegrees: +rawMETAR.wind_dir_degrees[0],
-            windSpeedKT: +rawMETAR.wind_speed_kt[0],
-            altimInHg: +rawMETAR.altim_in_hg[0],
-            slpMB: +rawMETAR.sea_level_pressure_mb,
-          };
-          this.metars.push(metar);
-        });
+        if (+result.response.data[0].$.num_results !== 0) {
+          result.response.data[0].METAR.forEach((rawMETAR) => {
+            const metar = {
+              stationID: rawMETAR.station_id[0],
+              rawText: rawMETAR.raw_text[0],
+              tempC: +rawMETAR.temp_c[0],
+              dewpointC: +rawMETAR.dewpoint_c[0],
+              windDirDegrees: +rawMETAR.wind_dir_degrees[0],
+              windSpeedKT: +rawMETAR.wind_speed_kt[0],
+              altimInHg: +rawMETAR.altim_in_hg[0],
+              slpMB: +rawMETAR.sea_level_pressure_mb,
+            };
+            this.metars.push(metar);
+          });
+        } else {
+          this.metars.push({
+            stationID: '$',
+            rawText: 'No local METARs found',
+          });
+          this.allowDecoding = false;
+        }
       });
     },
     setDecoded() {
