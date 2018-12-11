@@ -30,31 +30,14 @@ export default {
     Location,
     WxForecast,
   },
-  data() {
-    return {
-      pos: null,
-    };
-  },
-  methods: {
-    setLocation(position) {
-      this.location = position;
-    },
-  },
+  props: ['pos'],
   computed: {
-    location: {
-      get() {
-        return {
-          latitude: this.pos.coords.latitude,
-          longitude: this.pos.coords.longitude,
-        };
-      },
-      set(pos) {
-        this.pos = pos;
-      },
+    location() {
+      return {
+        latitude: this.pos.coords.latitude,
+        longitude: this.pos.coords.longitude,
+      };
     },
-  },
-  created() {
-    navigator.geolocation.getCurrentPosition(this.setLocation);
   },
 };
 </script>
