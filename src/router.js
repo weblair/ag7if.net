@@ -20,6 +20,7 @@ export default new Router({
       path: '/alerts',
       name: 'alerts',
       component: Alerts,
+      props: true,
     },
   ],
 });
