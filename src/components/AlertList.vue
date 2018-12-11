@@ -49,6 +49,7 @@ export default {
   methods: {
     parseAlerts(rawAlerts) {
       this.alerts = [];
+
       rawAlerts.features.forEach((raw) => {
         const alert = {
           id: raw.properties.id,
