@@ -55,14 +55,17 @@ export default {
   },
   methods: {
     parseTime(date, time) {
-      const dateStr = `${date}T${time}Z`;
+      const dateStr = `${date}T${time}:00Z`;
       const t = new Date(dateStr);
       const hr = t.getHours().toString().padStart(2, '0');
       const min = t.getMinutes().toString().padStart(2, '0');
       return `${hr}:${min}`;
     },
     parseData(data) {
-      const date = `${data.year}-${data.month}-${data.day}`;
+      const year = data.year.toString().padStart(2, '0');
+      const month = data.month.toString().padStart(2, '0');
+      const day = data.day.toString().padStart(2, '0');
+      const date = `${year}-${month}-${day}`;
       const sundata = {
         twilightStart: null,
         rise: null,
