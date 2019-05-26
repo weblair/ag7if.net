@@ -5,7 +5,7 @@ import router from './router';
 import Navbar from '@/components/Navbar.vue';
 
 // eslint-disable-next-line no-unused-vars
-const VERSION = '1.0.1';
+const VERSION = '1.0.2';
 
 Vue.config.productionTip = false;
 
